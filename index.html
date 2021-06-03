@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <!<script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>OptiLogger!</title>
+</head>
+<body onload = "JavaScript:AutoRefresh(200000);" style="background-image: linear-gradient(white,lightyellow,lightblue)">
+  <button onclick="clearFunction()">Clear</button>
+  <button onclick="stopFunction()">Stop</button>
+     [Idea Credits: ChessFabregas]
+  <div class="container">
+    <canvas id="myChart"></canvas>
+  </div>
+
+
+  <script type = "text/javascript">
+  <!--
+          function clearFunction()
+          {
+            const fs = require('fs')
+            /*fs.truncate('names1.csv', 0, function(){console.log('done')})*/
+            fs.truncate('chatfile2.txt', 0, function(){console.log('done')})
+          }
+          function AutoRefresh( t ) {
+             setTimeout("location.reload(true);", t);
+          }
+          function stopFunction()
+          {
+            clearInterval(AutoRefresh);
+          }
+       //-->
+      function makeChart(movesarray) {
+    // players is an array of objects where each object represents a player
+    var moveLabels = movesarray.map(function(d) {
+    return d.moves;
+  });
+  var moveData = movesarray.map(function(d) {
+    return +d.frequency;
+  });
+
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    // Global Options
+    Chart.defaults.global.defaultFontFamily = 'Lato';
+    Chart.defaults.global.defaultFontSize = 20;
+    Chart.defaults.global.defaultFontColor = '#455';
+
+    let massPopChart = new Chart(myChart, {
+      type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      data:{
+        labels:moveLabels,
+        datasets:[{
+          label:'Move Frequency',
+          data:moveData,
+          //backgroundColor:'green',
+          backgroundColor:[
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+
+          ],
+          borderWidth:1,
+          borderColor:'#777',
+          hoverBorderWidth:3,
+          hoverBorderColor:'#000'
+        }]
+      },
+      options:{
+
+
+        title:{
+          display:true,
+          text:'OptimisticExquisite MoveLogger by SG',
+          fontSize:25
+        },
+        legend:{
+          display:true,
+          position:'right',
+          labels:{
+            fontColor:'#000'
+          }
+        },
+        layout:{
+          padding:{
+            left:50,
+            right:0,
+            bottom:0,
+            top:0
+          }
+        },
+        tooltips:{
+          enabled:true
+        },
+
+
+        scales:{
+          xAxes:[{
+            ticks:{
+                beginAtZero: true
+                    }
+                  }]
+
+        }
+
+
+      }
+    });
+  }
+  d3.csv('http://localhost:8000/names1.csv')
+    .then(makeChart);
+  </script>
+</body>
+</html>
