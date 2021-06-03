@@ -1,1 +1,1 @@
-# movelog
+# Chess Movelogger
