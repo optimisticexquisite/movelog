@@ -2,12 +2,12 @@ import pytchat
 import json
 import re
 import os
-from flask import Flask
+#from flask import Flask
 import time
-app = Flask(__name__)
+#app = Flask(__name__)
 #@app.
 #def index():
-chat = pytchat.create(video_id="BAn5nR7qkpQ")
+chat = pytchat.create(video_id="4iOoM_UbzE0")
 PATTERN = re.compile('^([Oo0](-[Oo0]){1,2}|[KkQqRrBbNn]?[a-h]?[1-8]?x?[a-h][1-8](\=[QRBN])?[+#]?){1}$')
 
 while chat.is_alive():
