@@ -41,12 +41,45 @@
        //-->
       function makeChart(movesarray) {
     // players is an array of objects where each object represents a player
-    var moveLabels = movesarray.map(function(d) {
-    return d.moves;
-  });
+
   var moveData = movesarray.map(function(d) {
     return +d.frequency;
   });
+
+  // Creating the bblSort function
+   function bblSort(arr1,arr2){
+
+   for(var i = 0; i < arr1.length; i++){
+
+     // Last i elements are already in place
+     for(var j = 0; j < ( arr1.length - i -1 ); j++){
+
+       // Checking if the item at present iteration
+       // is greater than the next iteration
+       if(arr1[j] < arr1[j+1]){
+
+         // If the condition is true then swap them
+         var temp = arr1[j]
+         var temp2=arr2[j]
+         arr1[j] = arr1[j + 1]
+         arr2[j]=arr2[j+1]
+         arr2[j+1]=temp2
+         arr1[j+1] = temp
+       }
+     }
+   }}
+
+
+
+/*moveData.sort(function(a1, b1){return b1-a1});
+movesarray.sort(function(a, b){
+  return moveData.indexOf(b) - moveData.indexOf(a);
+});*/
+var moveLabels = movesarray.map(function(d) {
+return d.moves;
+});
+bblSort(moveData,moveLabels);
+
 
     let myChart = document.getElementById('myChart').getContext('2d');
 
@@ -54,6 +87,7 @@
     Chart.defaults.global.defaultFontFamily = 'Lato';
     Chart.defaults.global.defaultFontSize = 20;
     Chart.defaults.global.defaultFontColor = '#455';
+
 
     let massPopChart = new Chart(myChart, {
       type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
